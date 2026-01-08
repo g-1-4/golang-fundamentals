@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 	// "strconv"
 	// "strings"
 )
@@ -97,6 +98,7 @@ func main() {
 			// fmt.Printf("These are all our bookings: %v\n", firstNames)
 
 			bookTicket(userTickets, firstName, lastName, email)
+			go sendTicket(userTickets, firstName, lastName, email)
 
 			firstNames := []string{}
 			firstNames = getFirstNames(firstNames)
@@ -183,4 +185,12 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 
 	fmt.Printf("Thank you %s %s for booking %d tickets. You will receive a confirmation email at %s.\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%d tickets remaining for %s.\n", remainingTickets, conferenceName)	
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(10*time.Second)
+	var ticket =  fmt.Sprintf("%v tickets for %v %v have been sent", userTickets, firstName, lastName)
+	fmt.Println("####################")
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("####################")
 }
